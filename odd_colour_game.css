@@ -17,6 +17,11 @@
   100% {color: white;}
 }
 
+@keyframes disappear {
+  from {left: 0px;}
+  to {left: 1800px;}
+}
+
 body {
   font-size: 40px;
   color: rgb(160,160,160);
@@ -35,6 +40,9 @@ body {
   height: 800px;
   background-image: linear-gradient(to top left, #3158CE, black);
   padding-top: 140px;
+  animation-duration: 3s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
 }
 
 .spin_square {

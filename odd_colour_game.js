@@ -85,9 +85,14 @@ function makeButtonEvents() {
   restart_button.addEventListener("click", reset);
   show_button.addEventListener("click", showAnswer);
   main_menu.addEventListener("click", function() {
+    main_menu.style.animationName = "disappear";
     game.style.display = "block";
-    main_menu.style.display = "none";
-    init();
+    setTimeout(function() {
+      main_menu.style.display = "none";
+      init();
+    } ,2000);
+
+
   });
 }
 
