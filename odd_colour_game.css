@@ -1,11 +1,10 @@
 
-
-
-
-#game {
-  position: relative;
-  bottom: 30px;
-  height: 800px
+@keyframes spin {
+  0% {transform: rotateX(0deg);}
+  25% {transform: rotateX(90deg);}
+  50% {transform: rotateX(180deg);}
+  75% {transform: rotateX(270deg);}
+  100% {transform: rotateX(360deg);}
 }
 
 body {
@@ -15,9 +14,46 @@ body {
   margin: auto;
   background: rgb(40, 40, 40);
   font-family: "Helvetica";
+  position: relative;
   overflow: hidden;
 
 }
+
+#main_menu {
+  font-family: "Amatica SC";
+  position: relative;
+  bottom: 30px;
+  height: 800px;
+  background-image: linear-gradient(to top left, #3158CE, black);
+  padding-top: 140px;
+}
+
+.spin_square {
+  background-image: linear-gradient(to top right, red, black);
+  width: 40px;
+  height: 40px;
+  border: 0px solid red;
+  border-radius: 10px;
+  position: absolute;
+  top: 405px;
+  left: 950px;
+  animation-name: spin;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+#spin_second {
+  position: absolute;
+  left: 380px;
+}
+
+#game {
+  position: relative;
+  bottom: 30px;
+  height: 800px;
+  display: none;
+}
+
 
 #title_heading {
   height: 0px;
@@ -56,8 +92,7 @@ body {
   bottom: 300px;
 }
 
-button {
-
+[id$="button"] {
   width: 200px;
   outline: none;
   font-size: 50px;

@@ -84,6 +84,11 @@ function generateRandomColour() { // generates a colour and the diff colour
 function makeButtonEvents() {
   restart_button.addEventListener("click", reset);
   show_button.addEventListener("click", showAnswer);
+  main_menu.addEventListener("click", function() {
+    game.style.display = "block";
+    main_menu.style.display = "none";
+    init();
+  });
 }
 
 function reset() {
@@ -203,6 +208,8 @@ var starting_date;
 
 
 var body = document.querySelector("body");
+var main_menu = document.querySelector("#main_menu");
+var game = document.querySelector("#game");
 var interface = document.querySelector("#interface");
 var restart_button = document.querySelector("#restart_button");
 var show_button = document.querySelector("#show_button");
@@ -215,4 +222,3 @@ const INIT_BACKGROUND_COLOUR = "rgb(40, 40, 40)"; // Initial background colour
 
 
 makeButtonEvents();
-init();
