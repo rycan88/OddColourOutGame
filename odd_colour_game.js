@@ -1,7 +1,16 @@
 
 function init() {
+  restart_button.style.visibility = "hidden";
+  show_button.style.visibility = "hidden";
+  show_button.innerHTML = "Show";
+  level = 1;
+  points = 0;
+  boardSize = 2;
+  colourChangeAmount = 25;
+  sec_left = 10;
+  tileHolder = [];
+  redraw();
   timeoutVar = setTimeout(timeDown, 1000);
-  makeButtonEvents();
   createBoard();
 }
 
@@ -77,20 +86,10 @@ function makeButtonEvents() {
 }
 
 function reset() {
-  restart_button.style.visibility = "hidden";
-  show_button.style.visibility = "hidden";
-  show_button.innerHTML = "Show";
   destroyBoard();
-  level = 1;
-  points = 0;
-  boardSize = 2;
-  colourChangeAmount = 50;
-  sec_left = 10;
-  tileHolder = [];
-  redraw();
-  setTimeout(timeDown, 1000);
-  createBoard();
+  init();
 }
+
 
 function showAnswer() {
   var diffTile = tileHolder[diffIndex];
@@ -188,12 +187,12 @@ var diffIndex;
 var timeoutVar;
 var colourHolder;
 
-var level = 1;
-var boardSize = 2;
-var points = 0;
-var colourChangeAmount = 30;
-var sec_left = 10
-var tileHolder = [];
+var level;
+var boardSize;
+var points;
+var colourChangeAmount;
+var sec_left;
+var tileHolder;
 
 var interface = document.querySelector("#interface");
 var restart_button = document.querySelector("#restart_button");
@@ -204,5 +203,5 @@ var timer = document.querySelector("#timer");
 const INTERFACE_SIZE = 570-20; //We can see this in colour_test.css
 
 
-
+makeButtonEvents();
 init();
