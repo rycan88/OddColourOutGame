@@ -10,6 +10,7 @@ function init() {
   start_sec = 10;
   tileHolder = [];
   starting_date = new Date();
+  body.style.backgroundColor = INIT_BACKGROUND_COLOUR;
   setTimeout(redraw, 100);
   createBoard();
 }
@@ -64,9 +65,9 @@ function generateRandomColour() { // generates a colour and the diff colour
   var r = Math.floor(Math.random() * 255);
   var g = Math.floor(Math.random() * 255);
   var b = Math.floor(Math.random() * 255);
-  colourHolder.push("rgb("+ r + ", " + g + ", " + b + ")");
-
   var l = [r, g, b];
+  colourHolder.push(listToRgb(l));
+
   for (x in l) {
     if (Math.floor(Math.random() * 2) == 1) {
       colourChangeAmount *= -1;
@@ -76,7 +77,7 @@ function generateRandomColour() { // generates a colour and the diff colour
       l[x] += colourChangeAmount * 2;
     }
   }
-  colourHolder.push("rgb("+ l[0] + ", " + l[1] + ", " + l[2] + ")");
+  colourHolder.push(listToRgb(l));
   return colourHolder;
 }
 
@@ -100,31 +101,21 @@ function showAnswer() {
   show_button.style.visibility = "visible";
   if (show_button.innerHTML == "Show") {
     show_button.innerHTML = "Hide";
-    diffTile.style.border = "3px solid " + makeBorderColour(colourHolder[1]);
-    var currentSize = INTERFACE_SIZE / (boardSize + 1);
-    diffTile.style.width = currentSize - 6 + "px";
-    diffTile.style.height = currentSize - 6 + "px";
+    changeBackground(INIT_BACKGROUND_COLOUR, colourHolder[0]);
   } else {
     show_button.innerHTML = "Show";
-    diffTile.style.border = "0px solid white";
-    var currentSize = INTERFACE_SIZE / (boardSize + 1);
-    diffTile.style.width = currentSize + "px";
-    diffTile.style.height = currentSize + "px";
+    changeBackground(colourHolder[0], INIT_BACKGROUND_COLOUR);
   }
 }
 
-function makeBorderColour(colour) {
-  colour = colour.slice(4,-1);
-  var rgb = colour.split(", ");
-  var min = Math.min(Number(rgb[0]), Number(rgb[1]), Number(rgb[2]));
-  for (x in rgb) {
-    if (Number(rgb[x]) == min) {
-      rgb[x] = 255;
-    } else {
-      rgb[x] = 0;
-    }
-  }
-  return "rgb(" + rgb[0] + ", " + rgb[1] + ", " + rgb[2] + ")";
+function rgbToList(rgb) {
+  rgb = rgb.slice(4,-1);
+  rgb = rgb.split(", ");
+  return rgb.map(Number);
+}
+
+function listToRgb(lst) {
+  return "rgb(" + lst.join(", ") + ")";
 }
 
 function nextTurn() {
@@ -132,12 +123,8 @@ function nextTurn() {
   points += Number(timer.innerHTML) * 50;
   start_sec = 10;
   starting_date = new Date();
-  if (Math.abs(colourChangeAmount) > 3) {
+  if (Math.abs(colourChangeAmount) > 5) {
     colourChangeAmount = Math.abs(colourChangeAmount) - 1;
-  }
-
-  if (show_button.innerHTML = "Hide") {
-    showAnswer();
   }
 
   restart_button.style.visibility = "hidden";
@@ -177,10 +164,31 @@ function redraw() {
   timeoutVar = setTimeout(redraw, 100);
 }
 
+function changeBackground(init_rgb, new_rgb) {
+  if (init_rgb == new_rgb) {
+    return;
+  }
+  var init_colour = rgbToList(init_rgb);
+  var new_colour = rgbToList(new_rgb);
+  for (x = 0; x < 3; x++) {
+    if (init_colour[x] != new_colour[x]) {
+      if (init_colour[x] < new_colour[x]) {
+        init_colour[x] += 1;
+      } else {
+        init_colour[x] -= 1;
+      }
+    }
+  }
+  var current_rgb = listToRgb(init_colour);
+  body.style.backgroundColor = current_rgb;
+  setTimeout(changeBackground, 15, current_rgb, new_rgb);
+
+}
 // Global variables assigned places other than init()
-var diffIndex;
+var diffIndex; // index of different colour
+// colourHolder[0] is the normal colour, colourHolder[1] is the different one
 var colourHolder;
-var timeoutVar;
+var timeoutVar; // variable to store timeouts
 
 
 // Global variables assigned in init()
@@ -192,13 +200,18 @@ var start_sec;
 var tileHolder;
 var starting_date;
 
+
+
+var body = document.querySelector("body");
 var interface = document.querySelector("#interface");
 var restart_button = document.querySelector("#restart_button");
 var show_button = document.querySelector("#show_button");
 var level_span = document.querySelector("#level_span");
 var point_span = document.querySelector("#point_span");
 var timer = document.querySelector("#timer");
+
 const INTERFACE_SIZE = 570-20; //We can see this in colour_test.css
+const INIT_BACKGROUND_COLOUR = "rgb(40, 40, 40)"; // Initial background colour
 
 
 makeButtonEvents();
