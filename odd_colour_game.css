@@ -16,6 +16,7 @@ body {
 }
 
 #stats {
+  text-align: left;
   float: left;
   margin-left: 120px;
   padding-top: 200px;
@@ -55,16 +56,16 @@ button {
   visibility: hidden;
 }
 
-#restart_button {
-  color: green;
-  border: 4px solid green;
+#show_button {
+  color: rgb(60,60,120);
+  border: 4px solid rgb(60,60,120);
   position: absolute;
   right: 900px;
 }
 
-#show_button {
-  color: rgb(60,60,120);
-  border: 4px solid rgb(60,60,120);
+#restart_button {
+  color: green;
+  border: 4px solid green;
   float: left;
   position: relative;
   right: 40px;

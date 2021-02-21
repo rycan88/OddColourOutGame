@@ -7,10 +7,10 @@ function init() {
   points = 0;
   boardSize = 2;
   colourChangeAmount = 25;
-  sec_left = 10;
+  start_sec = 10;
   tileHolder = [];
-  redraw();
-  timeoutVar = setTimeout(timeDown, 1000);
+  starting_date = new Date();
+  setTimeout(redraw, 100);
   createBoard();
 }
 
@@ -43,10 +43,10 @@ function createTile(colour) {
   newTile.style.backgroundColor = colour;
 
   newTile.onclick = function() {
-    clearTimeout(timeoutVar);
     if (this.style.backgroundColor == colourHolder[1]) {
       nextTurn();
     } else {
+      clearTimeout(timeoutVar);
       showAnswer();
     }
   };
@@ -59,7 +59,7 @@ function destroyBoard() {
   tileHolder = [];
 }
 
-function generateRandomColour() {
+function generateRandomColour() { // generates a colour and the diff colour
   var colourHolder = [];
   var r = Math.floor(Math.random() * 255);
   var g = Math.floor(Math.random() * 255);
@@ -128,13 +128,11 @@ function makeBorderColour(colour) {
 }
 
 function nextTurn() {
-  clearTimeout(timeoutVar);
   level += 1;
   points += Number(timer.innerHTML) * 50;
-  sec_left = 10;
-  redraw();
-  timeoutVar = setTimeout(timeDown, 1000);
-  if (Math.abs(colourChangeAmount) > 5) {
+  start_sec = 10;
+  starting_date = new Date();
+  if (Math.abs(colourChangeAmount) > 3) {
     colourChangeAmount = Math.abs(colourChangeAmount) - 1;
   }
 
@@ -146,7 +144,6 @@ function nextTurn() {
   show_button.style.visibility = "hidden";
 
   destroyBoard();
-
 
   switch (level) {
     case 5:
@@ -169,30 +166,31 @@ function nextTurn() {
 function redraw() {
   level_span.innerHTML = level;
   point_span.innerHTML = points;
-  timer.innerHTML = sec_left;
-}
-
-function timeDown() {
-  sec_left -= 1;
+  var current_date = new Date();
+  var sec_left = 10 - Math.floor((current_date.getTime() - starting_date.getTime()) / 1000);
   var str = sec_left + "";
   timer.innerHTML = str.padStart(2,0);
   if (sec_left <= 0) {
     showAnswer();
     return;
   }
-  timeoutVar = setTimeout(timeDown, 1000);
+  timeoutVar = setTimeout(redraw, 100);
 }
 
+// Global variables assigned places other than init()
 var diffIndex;
-var timeoutVar;
 var colourHolder;
+var timeoutVar;
 
+
+// Global variables assigned in init()
 var level;
 var boardSize;
 var points;
 var colourChangeAmount;
-var sec_left;
+var start_sec;
 var tileHolder;
+var starting_date;
 
 var interface = document.querySelector("#interface");
 var restart_button = document.querySelector("#restart_button");
