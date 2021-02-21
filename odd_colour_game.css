@@ -1,0 +1,78 @@
+
+
+body {
+  font-size: 40px;
+  color: rgb(160,160,160);
+  text-align: center;
+  margin: auto;
+  background: rgb(40, 40, 40);
+  font-family: "Helvetica";
+}
+
+#title_heading {
+  height: 0px;
+  width: 500px;
+  float: left;
+}
+
+#stats {
+  float: left;
+  margin-left: 120px;
+  padding-top: 200px;
+}
+
+#interface {
+  /* background-color: black; */
+  width: 570px;
+  height: 570px;
+  padding-top: 40px;
+  margin: 20px auto;
+}
+
+.tiles {
+  background: green;
+  border: 0px solid black;
+  border-radius: 30%;
+  float: left;
+}
+
+#sidebar {
+  height: 0px;
+  width: 100px;
+  float: right;
+  position: relative;
+  right: 200px;
+  bottom: 300px;
+}
+
+button {
+
+  width: 200px;
+  outline: none;
+  font-size: 50px;
+  border-radius: 10px;
+  margin: 30px auto;
+  visibility: hidden;
+}
+
+#restart_button {
+  color: green;
+  border: 4px solid green;
+  position: absolute;
+  right: 900px;
+}
+
+#show_button {
+  color: rgb(60,60,120);
+  border: 4px solid rgb(60,60,120);
+  float: left;
+  position: relative;
+  right: 40px;
+}
+
+#timer_p {
+  text-align: center;
+  position: relative;
+  bottom: 100px;
+  left: 40px;
+}
