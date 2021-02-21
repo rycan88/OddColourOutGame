@@ -92,6 +92,7 @@ function makeButtonEvents() {
 }
 
 function reset() {
+  clearTimeout(timeoutVar);
   destroyBoard();
   init();
 }
@@ -186,7 +187,7 @@ function changeBackground(init_rgb, new_rgb) {
   }
   var current_rgb = listToRgb(init_colour);
   body.style.backgroundColor = current_rgb;
-  setTimeout(changeBackground, 15, current_rgb, new_rgb);
+  timeoutVar = setTimeout(changeBackground, 15, current_rgb, new_rgb);
 
 }
 // Global variables assigned places other than init()

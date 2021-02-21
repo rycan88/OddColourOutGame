@@ -1,10 +1,20 @@
 
 @keyframes spin {
   0% {transform: rotateX(0deg);}
+  12% {transform: rotateX(45deg);}
   25% {transform: rotateX(90deg);}
+  37% {transform: rotateX(135deg);}
   50% {transform: rotateX(180deg);}
+  62% {transform: rotateX(225deg);}
   75% {transform: rotateX(270deg);}
+  87% {transform: rotateX(315deg);}
   100% {transform: rotateX(360deg);}
+}
+
+@keyframes colourChange{
+  0% {color: white;}
+  50% {color: #DDD222;}
+  100% {color: white;}
 }
 
 body {
@@ -16,7 +26,6 @@ body {
   font-family: "Helvetica";
   position: relative;
   overflow: hidden;
-
 }
 
 #main_menu {
@@ -30,12 +39,13 @@ body {
 
 .spin_square {
   background-image: linear-gradient(to top right, red, black);
+  font-size: 30px;
   width: 40px;
   height: 40px;
   border: 0px solid red;
   border-radius: 10px;
   position: absolute;
-  top: 405px;
+  top: 410px;
   left: 950px;
   animation-name: spin;
   animation-duration: 1s;
@@ -45,6 +55,12 @@ body {
 #spin_second {
   position: absolute;
   left: 380px;
+}
+
+#start_click {
+  animation-name: colourChange;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
 }
 
 #game {
