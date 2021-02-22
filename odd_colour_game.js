@@ -85,12 +85,12 @@ function makeButtonEvents() {
   restart_button.addEventListener("click", reset);
   show_button.addEventListener("click", showAnswer);
   main_menu.addEventListener("click", function() {
-    main_menu.style.animationName = "disappear";
+    changeBackground(TEXT_FONT_COLOUR, INIT_BACKGROUND_COLOUR);
     game.style.display = "block";
+    main_menu.style.display = "none";
     setTimeout(function() {
-      main_menu.style.display = "none";
       init();
-    } ,2000);
+    } ,1950);
 
 
   });
@@ -104,6 +104,7 @@ function reset() {
 
 
 function showAnswer() {
+  clearTimeout(timeoutVar);
   var diffTile = tileHolder[diffIndex];
   for (x in tileHolder) {
     tileHolder[x].onclick = "none";
@@ -112,10 +113,10 @@ function showAnswer() {
   show_button.style.visibility = "visible";
   if (show_button.innerHTML == "Show") {
     show_button.innerHTML = "Hide";
-    changeBackground(INIT_BACKGROUND_COLOUR, colourHolder[0]);
+    changeBackground(body.style.backgroundColor, colourHolder[0]);
   } else {
     show_button.innerHTML = "Show";
-    changeBackground(colourHolder[0], INIT_BACKGROUND_COLOUR);
+    changeBackground(body.style.backgroundColor, INIT_BACKGROUND_COLOUR);
   }
 }
 
@@ -223,8 +224,10 @@ var level_span = document.querySelector("#level_span");
 var point_span = document.querySelector("#point_span");
 var timer = document.querySelector("#timer");
 
+
 const INTERFACE_SIZE = 570-20; //We can see this in colour_test.css
 const INIT_BACKGROUND_COLOUR = "rgb(40, 40, 40)"; // Initial background colour
-
+const TEXT_FONT_COLOUR = "rgb(160, 160, 160)";
 
 makeButtonEvents();
+// Program starts when the main menu is clicked
