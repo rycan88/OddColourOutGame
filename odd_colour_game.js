@@ -1,4 +1,41 @@
 
+
+// Global variables assigned places other than init()
+var diffIndex; // index of different colour
+
+// colourHolder[0] is the normal colour, colourHolder[1] is the different one
+var colourHolder;
+var redrawTimeout; // variable to store redraw timeout
+var backgroundTimeout; // variable to store background timeout
+
+// Global variables assigned in init()
+var level;
+var boardSize;
+var points;
+var colourChangeAmount;
+var start_sec;
+var tileHolder;
+var starting_date;
+
+
+var body = document.querySelector("body");
+var main_menu = document.querySelector("#main_menu");
+var game = document.querySelector("#game");
+var interface = document.querySelector("#interface");
+var restart_button = document.querySelector("#restart_button");
+var show_button = document.querySelector("#show_button");
+var level_span = document.querySelector("#level_span");
+var point_span = document.querySelector("#point_span");
+var timer = document.querySelector("#timer");
+
+
+const INTERFACE_SIZE = 570-20; //We can see this in colour_test.css
+const INIT_BACKGROUND_COLOUR = "rgb(40, 40, 40)"; // Initial background colour
+const TEXT_FONT_COLOUR = "rgb(160, 160, 160)";
+
+makeButtonEvents();
+// Program starts when the main menu is clicked
+
 function init() {
   restart_button.style.visibility = "hidden";
   show_button.style.visibility = "hidden";
@@ -47,7 +84,7 @@ function createTile(colour) {
     if (this.style.backgroundColor == colourHolder[1]) {
       nextTurn();
     } else {
-      clearTimeout(timeoutVar);
+      clearTimeout(redrawTimeout);
       showAnswer();
     }
   };
@@ -97,14 +134,15 @@ function makeButtonEvents() {
 }
 
 function reset() {
-  clearTimeout(timeoutVar);
+  clearTimeout(redrawTimeout);
+  clearTimeout(backgroundTimeout);
   destroyBoard();
   init();
 }
 
 
 function showAnswer() {
-  clearTimeout(timeoutVar);
+  clearTimeout(backgroundTimeout);
   var diffTile = tileHolder[diffIndex];
   for (x in tileHolder) {
     tileHolder[x].onclick = "none";
@@ -158,7 +196,6 @@ function nextTurn() {
       boardSize = 6;
       break;
   }
-
   createBoard();
 }
 
@@ -173,7 +210,7 @@ function redraw() {
     showAnswer();
     return;
   }
-  timeoutVar = setTimeout(redraw, 100);
+  redrawTimeout = setTimeout(redraw, 100);
 }
 
 function changeBackground(init_rgb, new_rgb) {
@@ -193,41 +230,6 @@ function changeBackground(init_rgb, new_rgb) {
   }
   var current_rgb = listToRgb(init_colour);
   body.style.backgroundColor = current_rgb;
-  timeoutVar = setTimeout(changeBackground, 15, current_rgb, new_rgb);
+  backgroundTimeout = setTimeout(changeBackground, 15, current_rgb, new_rgb);
 
 }
-// Global variables assigned places other than init()
-var diffIndex; // index of different colour
-// colourHolder[0] is the normal colour, colourHolder[1] is the different one
-var colourHolder;
-var timeoutVar; // variable to store timeouts
-
-
-// Global variables assigned in init()
-var level;
-var boardSize;
-var points;
-var colourChangeAmount;
-var start_sec;
-var tileHolder;
-var starting_date;
-
-
-
-var body = document.querySelector("body");
-var main_menu = document.querySelector("#main_menu");
-var game = document.querySelector("#game");
-var interface = document.querySelector("#interface");
-var restart_button = document.querySelector("#restart_button");
-var show_button = document.querySelector("#show_button");
-var level_span = document.querySelector("#level_span");
-var point_span = document.querySelector("#point_span");
-var timer = document.querySelector("#timer");
-
-
-const INTERFACE_SIZE = 570-20; //We can see this in colour_test.css
-const INIT_BACKGROUND_COLOUR = "rgb(40, 40, 40)"; // Initial background colour
-const TEXT_FONT_COLOUR = "rgb(160, 160, 160)";
-
-makeButtonEvents();
-// Program starts when the main menu is clicked
